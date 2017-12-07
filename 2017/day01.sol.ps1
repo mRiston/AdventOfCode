@@ -1,20 +1,21 @@
-﻿[string]$challenge = Get-Content .\day01.input
+﻿$challenge = Get-Content .\day01.input
+$sum = 0
 $pos = 0
-[int]$sum = 0
-[string]$numtoadd=$challenge.ToString()[$pos] #Store the beginning number
-$pos++ # Advance to the second digit - we've already stored the first
-while ($pos -lt $challenge.ToString().Length) {
-  if ($challenge.ToString()[$pos] -eq $numtoadd) {
-    # Success - we've found a match.
-    # Add it to our summary array
+while ($pos -lt $challenge.Length){
+  $numtoadd = $challenge[$pos]
+  #$sum
+
+  $i = 1
+
+  while ($challenge[$pos+$i] -eq $numtoadd) {
+    #Add this number again
     $sum += $numtoadd
-    # Advance $pos to next Digit an extra time and store that in $numtoadd
-    $pos++ 
-      $numtoadd = $challenge.ToString()[$pos] 
-    } else {
-      #Do nothing, the number in $pos doesn't match
-    }
-    #Advance $pos for while loop
+    #increment $pos
     $pos++
+  }
+  $pos++
 }
+# Check last digit against first digit
+if ($numtoadd -eq $challenge[0]) { $sum += $numtoadd }
+#Report sum
 $sum
